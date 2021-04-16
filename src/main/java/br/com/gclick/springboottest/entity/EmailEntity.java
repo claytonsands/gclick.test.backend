@@ -9,7 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import br.com.gclick.springboottest.util.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,20 +21,20 @@ import lombok.Setter;
 @Entity
 @Table(name = "email")
 @EqualsAndHashCode(callSuper = false)
-public class EmailEntity extends BaseEntity{
+public class EmailEntity {
 
-	private static final long serialVersionUID = -6330245321724361343L;
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "categoria")
 	private String category;
 	@Column(name = "nome")
 	private String name;
-	@Column(name = "email", unique = true)
+//	@Column(name = "email", unique = true)
+	@Column(name = "email")
 	private String email;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private ClientEntity client;

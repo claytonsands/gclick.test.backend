@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.gclick.springboottest.enums.ClientStatusEnum;
-import br.com.gclick.springboottest.util.BaseEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,11 +23,10 @@ import lombok.Setter;
 @Entity
 @Table(name = "cliente")
 @EqualsAndHashCode(callSuper = false)
-public class ClientEntity extends BaseEntity {
+public class ClientEntity {
 
-	private static final long serialVersionUID = 3203151127458533029L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "inscricao")
 	private String subscription;
@@ -38,6 +36,8 @@ public class ClientEntity extends BaseEntity {
 	private String nickname;
 	@Column(name = "status")
 	private ClientStatusEnum status;
+	@Column(name = "foto_url")
+	private String urlPhoto;
 
     @OneToMany(mappedBy = "client", cascade = { CascadeType.ALL })
 	private List<EmailEntity> emails = new ArrayList<EmailEntity>();

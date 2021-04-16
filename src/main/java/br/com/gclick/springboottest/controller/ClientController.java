@@ -1,12 +1,13 @@
 package br.com.gclick.springboottest.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,8 +31,8 @@ public class ClientController {
 	private ClientRepository clientRepository;
 
 	@GetMapping("/client")
-	public List<ClientEntity> getAllClient() {
-		return clientRepository.findAll();
+	public Page<ClientEntity> getAllClient(Pageable pageable) {
+		return clientRepository.findAll(pageable);
 	}
 
 	@GetMapping("/client/{id}")
@@ -57,7 +58,7 @@ public class ClientController {
 		client.setSubscription(clientDetails.getSubscription());
 		client.setName(clientDetails.getName());
 		client.setStatus(clientDetails.getStatus());
-		client.setEmails(clientDetails.getEmails());
+		client.setUrlPhoto(clientDetails.getUrlPhoto());
 		
 		final ClientEntity updatedClient = clientRepository.save(client);
 		return ResponseEntity.ok(updatedClient);
